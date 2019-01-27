@@ -1,0 +1,30 @@
+format_version: 2
+environments:
+  ci:
+    pipelines:
+      - "team3API"
+      
+pipelines:
+  "team3API":
+    group: team3
+    materials:
+      ui:
+        git: "git@github.com:Manikandan-K/team3-api.git"
+    stages:
+      - buildAndTest:
+          jobs:
+            test:
+              resources:
+                - node-and-java
+              tasks:
+                - script: |
+                    buildAndDeploy/build/build.sh team3
+
+      - deploy:
+           jobs:
+            deploy:
+              resources:
+                - node-and-java
+              tasks:
+                - script: |
+                    buildAndDeploy/deploy/deploy.sh team3 sethu-origin-key-pair
