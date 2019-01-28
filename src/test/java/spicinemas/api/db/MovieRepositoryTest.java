@@ -25,8 +25,6 @@ public class MovieRepositoryTest {
     @Autowired
     DSLContext dslContext;
 
-
-
     @Test
     public void shouldInsertUserInDb(){
         String movieName = "Infinity War";
@@ -36,5 +34,12 @@ public class MovieRepositoryTest {
         assertThat(actualMovie.getName(), is(expectedMovie.getName()));
         assertThat(actualMovie.getExperiences(), is(expectedMovie.getExperiences()));
         assertThat(actualMovie.getListingType(), is(expectedMovie.getListingType()));
+    }
+
+    @Test
+    public void shouldFetchMovieDetailsForGivenMovie(){
+        String movieName = "Kabali";
+        Movie actualMovie = movieRepo.getMovie(movieName);
+        assertThat(movieName, is(actualMovie.getName()));
     }
 }
