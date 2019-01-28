@@ -1,8 +1,6 @@
 package spicinemas.api.db;
 
 import org.jooq.DSLContext;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +19,16 @@ import static org.hamcrest.Matchers.is;
 @ActiveProfiles("test")
 public class MovieRepositoryTest {
     @Autowired
-    private MovieRepository movieRepo;
-    @Autowired
     DSLContext dslContext;
+    @Autowired
+    private MovieRepository movieRepo;
 
     @Test
-    public void shouldInsertUserInDb(){
+    public void shouldInsertUserInDb() {
         String movieName = "Infinity War";
-        Movie expectedMovie = new Movie(movieName, "okay", MovieListingType.NOW_SHOWING);
+        Movie expectedMovie = new Movie(movieName, "U", "Tamil", "something",
+                "Action", "crew1, crew2", "cast1, cast2", 120,
+                "okay", MovieListingType.NOW_SHOWING);
         movieRepo.addMovie(expectedMovie);
         Movie actualMovie = movieRepo.getMovie(movieName);
         assertThat(actualMovie.getName(), is(expectedMovie.getName()));
@@ -37,7 +37,7 @@ public class MovieRepositoryTest {
     }
 
     @Test
-    public void shouldFetchMovieDetailsForGivenMovie(){
+    public void shouldFetchMovieDetailsForGivenMovie() {
         String movieName = "Kabali";
         Movie actualMovie = movieRepo.getMovie(movieName);
         assertThat(movieName, is(actualMovie.getName()));
