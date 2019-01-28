@@ -22,8 +22,32 @@ public class MovieRepository {
     }
 
     public void addMovie(Movie movie) {
-        dsl.insertInto(DSL.table("MOVIE"), DSL.field("NAME"), DSL.field("EXPERIENCES"), DSL.field("LISTING_TYPE"))
-                .values(movie.getName(), movie.getExperiences(), movie.getListingType().toString())
+        dsl.insertInto(
+                DSL.table("MOVIE"),
+
+                DSL.field("NAME"),
+                DSL.field("CERTIFICATION"),
+                DSL.field("LANGUAGE"),
+                DSL.field("SYNOPSIS"),
+                DSL.field("GENRE"),
+                DSL.field("CREW"),
+                DSL.field("MOVIE_CAST"),
+                DSL.field("RUNTIME"),
+                DSL.field("EXPERIENCES"),
+                DSL.field("LISTING_TYPE")
+        )
+                .values(
+                        movie.getName(),
+                        movie.getCertification(),
+                        movie.getLanguage(),
+                        movie.getSynopsis(),
+                        movie.getGenre(),
+                        movie.getCrew(),
+                        movie.getMovieCast(),
+                        movie.getRuntime(),
+                        movie.getExperiences(),
+                        movie.getListingType().toString()
+                )
                 .execute();
 
     }
