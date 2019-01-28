@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import spicinemas.api.type.MovieListingType;
 
@@ -27,6 +28,12 @@ public class MovieController {
             method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Movie> getNowShowingMovies() {
         return movieRepo.getNowShowingMovies();
+    }
+
+    @RequestMapping(value = "/movies/{name}",
+            method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Movie getMovieDetail(@PathVariable String name) {
+        return movieRepo.getMovie(name);
     }
 
 }
