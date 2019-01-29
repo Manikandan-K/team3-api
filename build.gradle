@@ -41,5 +41,5 @@ dependencies {
 	compile('org.postgresql:postgresql:9.4.1211.jre7')
 	compile('org.flywaydb:flyway-core:4.0.3')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile ('com.h2database:h2:1.4.197')
+	testCompile ('org.postgresql:postgresql:9.4.1211.jre7')
 }
