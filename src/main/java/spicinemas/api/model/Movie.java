@@ -2,6 +2,7 @@ package spicinemas.api.model;
 
 import lombok.EqualsAndHashCode;
 import spicinemas.api.type.MovieListingType;
+
 @EqualsAndHashCode(exclude = {"id"})
 public class Movie {
     private Long id;

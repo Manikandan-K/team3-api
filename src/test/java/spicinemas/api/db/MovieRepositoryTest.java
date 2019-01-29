@@ -1,6 +1,9 @@
 package spicinemas.api.db;
 
+import org.flywaydb.core.Flyway;
 import org.jooq.DSLContext;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,15 @@ public class MovieRepositoryTest {
     @Autowired
     private MovieRepository movieRepo;
 
+    @Autowired
+    private Flyway flyway;
+
+
+    @Before
+    public void init() {
+        flyway.clean();
+        flyway.migrate();
+    }
     @Test
     public void shouldInsertUserInDb() {
         String movieName = "Infinity War";
