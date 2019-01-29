@@ -32,10 +32,10 @@ public class MovieController {
         return movieRepo.getNowShowingMovies();
     }
 
-    @RequestMapping(value = "/movies/{name}",
+    @RequestMapping(value = "/movies/{id}",
             method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Movie getMovieDetail(@PathVariable String name) {
-        return movieRepo.getMovie(name);
+    public Movie getMovieDetail(@PathVariable Long id) {
+        return movieRepo.getMovie(id);
     }
 
 }

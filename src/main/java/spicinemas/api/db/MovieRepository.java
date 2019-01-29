@@ -52,10 +52,10 @@ public class MovieRepository {
 
     }
 
-    public Movie getMovie(String name) {
+    public Movie getMovie(Long id) {
         return dsl.select()
                 .from(DSL.table("MOVIE"))
-                .where(DSL.field("MOVIE.NAME").eq(name))
+                .where(DSL.field("MOVIE.ID").eq(id))
                 .fetchOne()
                 .into(Movie.class);
     }

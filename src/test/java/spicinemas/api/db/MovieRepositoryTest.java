@@ -42,7 +42,7 @@ public class MovieRepositoryTest {
                 "Action", "crew1, crew2", "cast1, cast2", 120,
                 "okay", MovieListingType.NOW_SHOWING);
         movieRepo.addMovie(expectedMovie);
-        Movie actualMovie = movieRepo.getMovie(movieName);
+        Movie actualMovie = movieRepo.getMovie(9L);
         assertThat(actualMovie.getName(), is(expectedMovie.getName()));
         assertThat(actualMovie.getExperiences(), is(expectedMovie.getExperiences()));
         assertThat(actualMovie.getListingType(), is(expectedMovie.getListingType()));
@@ -51,7 +51,7 @@ public class MovieRepositoryTest {
     @Test
     public void shouldFetchMovieDetailsForGivenMovie() {
         String movieName = "Kabali";
-        Movie actualMovie = movieRepo.getMovie(movieName);
+        Movie actualMovie = movieRepo.getMovie(1L);
         assertThat(movieName, is(actualMovie.getName()));
     }
 }
