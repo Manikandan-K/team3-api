@@ -40,7 +40,7 @@ public class MovieRepositoryTest {
     }
 
     @Test
-    public void shouldInsertUserInDb() {
+    public void shouldInsertAMovieInTheTable() {
         String movieName = "Infinity War";
         Movie expectedMovie = new Movie(movieName, "U", "Tamil", "something",
                 "Action", "crew1, crew2", "cast1, cast2", 120,
@@ -63,7 +63,7 @@ public class MovieRepositoryTest {
     public void shouldReturnAllMovies() {
         List<Movie> nowShowingMovies = movieRepo.getNowShowingMovies();
 
-        assertEquals(17, nowShowingMovies.size());
+        assertEquals(12, nowShowingMovies.size());
     }
 
     @Test
