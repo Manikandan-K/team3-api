@@ -1,13 +1,11 @@
 package spicinemas.api.controller;
 
+import org.springframework.web.bind.annotation.*;
 import spicinemas.api.db.MovieRepository;
 import spicinemas.api.model.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import spicinemas.api.model.MoviesFilter;
 import spicinemas.api.type.MovieListingType;
 
 import java.util.List;
@@ -24,6 +22,11 @@ public class MovieController {
         movieRepo.addMovie(new Movie("Dunkirk", "U", "Tamil", "something",
                 "Action", "crew1, crew2", "cast1, cast2", 120,
                 "okay", MovieListingType.NOW_SHOWING));
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/movies")
+    public List<Movie> getMovies(@RequestParam(name = "type") String type, @RequestParam(name = "location") String location){
+        return movieRepo.getMovies(new MoviesFilter(type,location));
     }
 
     @RequestMapping(value = "/movies/now-showing",

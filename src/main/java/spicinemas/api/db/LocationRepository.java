@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import spicinemas.api.model.Location;
-import spicinemas.api.model.Movie;
 
 import java.util.List;
 

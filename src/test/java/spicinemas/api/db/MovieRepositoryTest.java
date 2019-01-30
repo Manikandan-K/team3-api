@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import spicinemas.SpiCinemasApplication;
 import spicinemas.api.model.Movie;
+import spicinemas.api.model.MoviesFilter;
 import spicinemas.api.type.MovieListingType;
 
 import java.util.List;
@@ -63,5 +64,12 @@ public class MovieRepositoryTest {
         List<Movie> nowShowingMovies = movieRepo.getNowShowingMovies();
 
         assertEquals(8, nowShowingMovies.size());
+    }
+
+    @Test
+    public void shouldReturnALlMoviesBasedOnFilter(){
+        MoviesFilter filter = new MoviesFilter(MovieListingType.NOW_SHOWING.toString(),"CHENNAI");
+        List<Movie> actualMovies =  movieRepo.getMovies(filter);
+        assertEquals(1,actualMovies.size());
     }
 }
