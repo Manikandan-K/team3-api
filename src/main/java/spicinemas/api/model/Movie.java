@@ -1,8 +1,10 @@
 package spicinemas.api.model;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import spicinemas.api.type.MovieListingType;
 
+@Getter
 @EqualsAndHashCode(exclude = {"id"})
 public class Movie {
     private Long id;
@@ -18,50 +20,6 @@ public class Movie {
     private MovieListingType listingType;
 
     public Movie() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCertification() {
-        return certification;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public String getSynopsis() {
-        return synopsis;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public String getCrew() {
-        return crew;
-    }
-
-    public String getMovieCast() {
-        return movieCast;
-    }
-
-    public Integer getRuntime() {
-        return runtime;
-    }
-
-    public String getExperiences() {
-        return experiences;
-    }
-
-    public MovieListingType getListingType() {
-        return listingType;
     }
 
     public Movie(String name, String certification, String language,
