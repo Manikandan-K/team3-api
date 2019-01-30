@@ -64,6 +64,7 @@ public class MovieRepository {
 
   public List<Movie> getMovies(MoviesFilter moviesFilter) {
     return dsl.select(
+            DSL.field("MOVIE.ID").as("ID"),
             DSL.field("MOVIE.NAME").as("NAME"),
             DSL.field("MOVIE.CERTIFICATION").as("CERTIFICATION"),
             DSL.field("MOVIE.LANGUAGE").as("LANGUAGE"),

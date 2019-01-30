@@ -1,10 +1,12 @@
 package spicinemas.api.model;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import spicinemas.api.type.MovieListingType;
 
 @Getter
+@AllArgsConstructor
 @EqualsAndHashCode(exclude = {"id"})
 public class Movie {
     private Long id;
