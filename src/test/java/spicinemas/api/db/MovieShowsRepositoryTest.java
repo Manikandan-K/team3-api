@@ -51,7 +51,7 @@ public class MovieShowsRepositoryTest {
         List<MovieShow> movieShows = movieShowsRepo.getShows();
         MovieShow actualShow = movieShows.get(0);
         assertEquals(expectedShow, actualShow);
-        assertEquals(movieShows.size(), 7);
+        assertEquals(12, movieShows.size());
     }
 
     @Test
