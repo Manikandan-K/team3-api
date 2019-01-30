@@ -69,7 +69,7 @@ public class MovieRepositoryTest {
     @Test
     public void shouldReturnALlMoviesBasedOnFilter(){
         MoviesFilter filter = new MoviesFilter(MovieListingType.NOW_SHOWING.toString(),"CHENNAI");
-        List<Movie> actualMovies =  movieRepo.getMovies(filter);
+        List<Movie> actualMovies =  movieRepo.getMovies(filter); 
         assertEquals(1,actualMovies.size());
     }
 }

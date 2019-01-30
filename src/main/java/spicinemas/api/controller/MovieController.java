@@ -29,6 +29,7 @@ public class MovieController {
         return movieRepo.getMovies(new MoviesFilter(type,location));
     }
 
+    @Deprecated
     @RequestMapping(value = "/movies/now-showing",
             method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Movie> getNowShowingMovies() {

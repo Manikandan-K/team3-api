@@ -63,14 +63,11 @@ public class MovieRepository {
   }
 
   public List<Movie> getMovies(MoviesFilter moviesFilter) {
-    Table<Record> movie = DSL.table("movie");
-    Table<Record> locations = DSL.table("locations");
-    Table<Record> movie_shows = DSL.table("movie_shows");
     return dsl.select()
-            .from(movie)
-            .innerJoin(movie_shows).on(DSL.field("movie.id").eq(DSL.field("movie_shows.movie_id")))
+            .from(DSL.table("movie"))
+            .innerJoin(DSL.table("movie_shows")).on(DSL.field("movie.id").eq(DSL.field("movie_shows.movie_id")))
             .innerJoin(DSL.table("theaters")).on(DSL.field("movie_shows.theater_id").eq(DSL.field("theaters.id")))
-            .innerJoin(locations).on(DSL.field("theaters.location_id").eq(DSL.field("locations.id")))
+            .innerJoin(DSL.table("locations")).on(DSL.field("theaters.location_id").eq(DSL.field("locations.id")))
             .where(DSL.field("movie.listing_type").equalIgnoreCase(moviesFilter.getType()).and(DSL.field("locations.name").likeIgnoreCase(moviesFilter.getLocation())))
             .fetchInto(Movie.class);
   }
