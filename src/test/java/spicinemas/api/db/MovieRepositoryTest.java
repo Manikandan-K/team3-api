@@ -46,7 +46,7 @@ public class MovieRepositoryTest {
                 "Action", "crew1, crew2", "cast1, cast2", 120,
                 "okay", MovieListingType.NOW_SHOWING);
         movieRepo.addMovie(expectedMovie);
-        Movie actualMovie = movieRepo.getMovie(9L);
+        Movie actualMovie = movieRepo.getMovie(18L);
         assertThat(actualMovie.getName(), is(expectedMovie.getName()));
         assertThat(actualMovie.getExperiences(), is(expectedMovie.getExperiences()));
         assertThat(actualMovie.getListingType(), is(expectedMovie.getListingType()));
@@ -63,7 +63,7 @@ public class MovieRepositoryTest {
     public void shouldReturnAllMovies() {
         List<Movie> nowShowingMovies = movieRepo.getNowShowingMovies();
 
-        assertEquals(8, nowShowingMovies.size());
+        assertEquals(17, nowShowingMovies.size());
     }
 
     @Test
