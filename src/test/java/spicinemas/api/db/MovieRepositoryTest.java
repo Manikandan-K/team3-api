@@ -3,7 +3,6 @@ package spicinemas.api.db;
 import org.flywaydb.core.Flyway;
 import org.jooq.DSLContext;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,11 @@ import spicinemas.SpiCinemasApplication;
 import spicinemas.api.model.Movie;
 import spicinemas.api.type.MovieListingType;
 
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpiCinemasApplication.class)
@@ -35,6 +37,7 @@ public class MovieRepositoryTest {
         flyway.clean();
         flyway.migrate();
     }
+
     @Test
     public void shouldInsertUserInDb() {
         String movieName = "Infinity War";
@@ -53,5 +56,12 @@ public class MovieRepositoryTest {
         String movieName = "Kabali";
         Movie actualMovie = movieRepo.getMovie(1L);
         assertThat(movieName, is(actualMovie.getName()));
+    }
+
+    @Test
+    public void shouldReturnAllMovies() {
+        List<Movie> nowShowingMovies = movieRepo.getNowShowingMovies();
+
+        assertEquals(8, nowShowingMovies.size());
     }
 }
