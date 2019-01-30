@@ -5,5 +5,5 @@ import lombok.Value;
 @Value
 public class MoviesFilter {
   private String type;
-  private String location;
+  private long locationId;
 }

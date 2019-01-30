@@ -63,12 +63,22 @@ public class MovieRepository {
   }
 
   public List<Movie> getMovies(MoviesFilter moviesFilter) {
-    return dsl.select()
+    return dsl.select(
+            DSL.field("MOVIE.NAME").as("NAME"),
+            DSL.field("MOVIE.CERTIFICATION").as("CERTIFICATION"),
+            DSL.field("MOVIE.LANGUAGE").as("LANGUAGE"),
+            DSL.field("MOVIE.SYNOPSIS").as("SYNOPSIS"),
+            DSL.field("MOVIE.GENRE").as("GENRE"),
+            DSL.field("MOVIE.CREW").as("CREW"),
+            DSL.field("MOVIE.MOVIE_CAST").as("MOVIE_CAST"),
+            DSL.field("MOVIE.RUNTIME").as("RUNTIME"),
+            DSL.field("MOVIE.EXPERIENCES").as("EXPERIENCES"),
+            DSL.field("MOVIE.LISTING_TYPE").as("LISTING_TYPE"))
             .from(DSL.table("movie"))
             .innerJoin(DSL.table("movie_shows")).on(DSL.field("movie.id").eq(DSL.field("movie_shows.movie_id")))
             .innerJoin(DSL.table("theaters")).on(DSL.field("movie_shows.theater_id").eq(DSL.field("theaters.id")))
             .innerJoin(DSL.table("locations")).on(DSL.field("theaters.location_id").eq(DSL.field("locations.id")))
-            .where(DSL.field("movie.listing_type").equalIgnoreCase(moviesFilter.getType()).and(DSL.field("locations.name").likeIgnoreCase(moviesFilter.getLocation())))
+            .where(DSL.field("movie.listing_type").equalIgnoreCase(moviesFilter.getType()).and(DSL.field("locations.id").eq(moviesFilter.getLocationId())))
             .fetchInto(Movie.class);
   }
 }

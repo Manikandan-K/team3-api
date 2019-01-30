@@ -25,7 +25,7 @@ public class MovieController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/movies")
-    public List<Movie> getMovies(@RequestParam(name = "type") String type, @RequestParam(name = "location") String location){
+    public List<Movie> getMovies(@RequestParam(name = "type") String type, @RequestParam(name = "location") long location){
         return movieRepo.getMovies(new MoviesFilter(type,location));
     }
 
