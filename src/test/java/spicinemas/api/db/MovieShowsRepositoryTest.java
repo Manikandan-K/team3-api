@@ -87,7 +87,7 @@ public class MovieShowsRepositoryTest {
 
         MovieShow expectedShow = new MovieShow(2, "Kabali", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-30 10:00"), sdf.parse("2019-01-29 13:00"));
 
-        List<MovieShow> movieShows = movieShowsRepo.getShowsByMovieID(7L, "2019-01-29");
+        List<MovieShow> movieShows = movieShowsRepo.getShowsByMovieID(1L, "2019-01-30");
 
         MovieShow expectedMovieShow = movieShows.get(0);
 
