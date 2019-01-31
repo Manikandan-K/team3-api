@@ -1,17 +1,19 @@
 package spicinemas.api.db;
 
-import org.jooq.DSLContext;
-import org.jooq.Result;
-import org.jooq.SelectOnConditionStep;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import spicinemas.api.model.Movie;
 import spicinemas.api.model.MovieShow;
 
-import java.util.ArrayList;
+import java.sql.Date;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static org.jooq.impl.DSL.*;
 
 
 @Repository
@@ -63,5 +65,17 @@ public class MovieShowsRepository {
       .where(DSL.field("MOVIE.ID").eq(id))
       .fetch()
       .into(MovieShow.class);
+  }
+
+  public List<MovieShow> getShowsByMovieID(Long id, String showDate) throws ParseException {
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate localDate = LocalDate.parse(showDate, dateTimeFormatter);
+    java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
+
+    Condition movieShowDateCondition = date("MOVIE_SHOWS.START_TIME").between(sqlDate).and(sqlDate);
+    return this.getGenericQuery()
+            .where(DSL.field("MOVIE.ID").eq(id).and(movieShowDateCondition))
+            .fetch()
+            .into(MovieShow.class);
   }
 }

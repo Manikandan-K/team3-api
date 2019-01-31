@@ -1,9 +1,6 @@
 package spicinemas.api.db;
 
-import org.jooq.DSLContext;
-import org.jooq.Field;
-import org.jooq.Record;
-import org.jooq.Table;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -63,6 +60,7 @@ public class MovieRepository {
   }
 
   public List<Movie> getMovies(MoviesFilter moviesFilter) {
+    Condition movieTypeMatch = DSL.field("movie.listing_type").equalIgnoreCase(moviesFilter.getType());
     return dsl.select(
             DSL.field("MOVIE.ID").as("ID"),
             DSL.field("MOVIE.NAME").as("NAME"),
@@ -79,7 +77,7 @@ public class MovieRepository {
             .innerJoin(DSL.table("movie_shows")).on(DSL.field("movie.id").eq(DSL.field("movie_shows.movie_id")))
             .innerJoin(DSL.table("theaters")).on(DSL.field("movie_shows.theater_id").eq(DSL.field("theaters.id")))
             .innerJoin(DSL.table("locations")).on(DSL.field("theaters.location_id").eq(DSL.field("locations.id")))
-            .where(DSL.field("movie.listing_type").equalIgnoreCase(moviesFilter.getType()).and(DSL.field("locations.id").eq(moviesFilter.getLocationId())))
+            .where(movieTypeMatch.and(DSL.field("locations.id").eq(moviesFilter.getLocationId())))
             .fetchInto(Movie.class);
   }
 }

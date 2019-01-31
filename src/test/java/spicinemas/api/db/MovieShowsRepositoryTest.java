@@ -80,4 +80,19 @@ public class MovieShowsRepositoryTest {
 
         assertEquals(expectedShow, expectedMovieShow);
     }
+
+    @Test
+    public void shouldMovieShowsByMovieIDAndShowDate() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        MovieShow expectedShow = new MovieShow(2, "Kabali", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-30 10:00"), sdf.parse("2019-01-29 13:00"));
+
+        List<MovieShow> movieShows = movieShowsRepo.getShowsByMovieID(7L, "2019-01-29");
+
+        MovieShow expectedMovieShow = movieShows.get(0);
+
+        assertEquals(expectedShow, expectedMovieShow);
+    }
+
+
 }
