@@ -61,7 +61,7 @@ public class MovieRepository {
 
   public List<Movie> getMovies(MoviesFilter moviesFilter) {
     Condition movieTypeMatch = DSL.field("movie.listing_type").equalIgnoreCase(moviesFilter.getType());
-    return dsl.select(
+    return dsl.selectDistinct(
             DSL.field("MOVIE.ID").as("ID"),
             DSL.field("MOVIE.NAME").as("NAME"),
             DSL.field("MOVIE.CERTIFICATION").as("CERTIFICATION"),

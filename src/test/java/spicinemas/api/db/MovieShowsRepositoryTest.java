@@ -49,13 +49,13 @@ public class MovieShowsRepositoryTest {
         MovieShow expectedShow = new MovieShow(1, "Remo", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-29 19:10"), sdf.parse("2019-01-29 21:10"),"Tamil");
 
         List<MovieShow> movieShows = movieShowsRepo.getShows();
-        MovieShow actualShow = movieShows.get(0);
+        MovieShow actualShow = movieShows.get(11);
         assertEquals(expectedShow, actualShow);
-        assertEquals(12, movieShows.size());
+        assertEquals(44, movieShows.size());
     }
 
     @Test
-    public void shouldMovieShowsByMovieName() throws ParseException {
+    public void shouldReturnMovieShowsWhenSearchedByMovieName() throws ParseException {
         String movieName = "Kabali";
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -65,7 +65,6 @@ public class MovieShowsRepositoryTest {
         List<MovieShow> movieShows = movieShowsRepo.getShowsByMovieName(movieName);
         MovieShow actualShow = movieShows.get(0);
         assertEquals(expectedShow, actualShow);
-        assertEquals(movieShows.size(), 1);
     }
 
     @Test
