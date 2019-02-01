@@ -1,7 +1,8 @@
 package spicinemas.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 
 import java.util.Date;
 
@@ -17,4 +18,29 @@ public class MovieShow {
     private long runtime;
     private Date startTime;
     private Date endTime;
+    private String language;
+
+    public MovieShow(long id, String movieName, String theaterName, long theaterCapacity, String experience, long runtime, Date startTime, Date endTime) {
+        this.id = id;
+        this.movieName = movieName;
+        this.theaterName = theaterName;
+        this.theaterCapacity = theaterCapacity;
+        this.experience = experience;
+        this.runtime = runtime;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        language = "";
+    }
+
+    public MovieShow(long id, String movieName, String theaterName, long theaterCapacity, String experience, long runtime, Date startTime, Date endTime, String language) {
+        this.id = id;
+        this.movieName = movieName;
+        this.theaterName = theaterName;
+        this.theaterCapacity = theaterCapacity;
+        this.experience = experience;
+        this.runtime = runtime;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.language = language;
+    }
 }

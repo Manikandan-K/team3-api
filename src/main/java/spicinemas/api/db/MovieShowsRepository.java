@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static org.jooq.impl.DSL.date;
 import static org.jooq.impl.DSL.field;
 
 
@@ -50,7 +49,8 @@ public class MovieShowsRepository {
                         DSL.field("SOUND_SYSTEMS.TYPE").as("EXPERIENCE"),
                         DSL.field("MOVIE.RUNTIME").as("RUNTIME"),
                         DSL.field("MOVIE_SHOWS.START_TIME").as("START_TIME"),
-                        DSL.field("MOVIE_SHOWS.END_TIME").as("END_TIME")
+                        DSL.field("MOVIE_SHOWS.END_TIME").as("END_TIME"),
+                        DSL.field("MOVIE.LANGUAGE").as("LANGUAGE")
                 )
                 .from(DSL.table("MOVIE_SHOWS"))
                 .leftOuterJoin(DSL.table("MOVIE"))

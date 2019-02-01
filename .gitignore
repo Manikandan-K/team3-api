@@ -22,6 +22,8 @@ bin/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
+src/main/resources/pplication-test.yml
+
 
 # JIRA plugin
 # test
@@ -120,4 +122,5 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
-src/main/generated
+src/main/generatedapplication-test.yml
+/src/main/resources/application-test.yml
