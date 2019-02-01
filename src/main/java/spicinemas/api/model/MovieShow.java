@@ -19,6 +19,7 @@ public class MovieShow {
     private Date startTime;
     private Date endTime;
     private String language;
+    private long availableTickets;
 
     public MovieShow(long id, String movieName, String theaterName, long theaterCapacity, String experience, long runtime, Date startTime, Date endTime) {
         this.id = id;
@@ -30,6 +31,7 @@ public class MovieShow {
         this.startTime = startTime;
         this.endTime = endTime;
         language = "";
+        availableTickets = 0;
     }
 
     public MovieShow(long id, String movieName, String theaterName, long theaterCapacity, String experience, long runtime, Date startTime, Date endTime, String language) {
@@ -42,5 +44,19 @@ public class MovieShow {
         this.startTime = startTime;
         this.endTime = endTime;
         this.language = language;
+        availableTickets = 0;
+    }
+
+    public MovieShow(long id, String movieName, String theaterName, long theaterCapacity, String experience, long runtime, Date startTime, Date endTime, String language, long availableTickets) {
+        this.id = id;
+        this.movieName = movieName;
+        this.theaterName = theaterName;
+        this.theaterCapacity = theaterCapacity;
+        this.experience = experience;
+        this.runtime = runtime;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.language = language;
+        this.availableTickets = availableTickets;
     }
 }

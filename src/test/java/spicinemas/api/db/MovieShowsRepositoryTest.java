@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpiCinemasApplication.class)
@@ -46,7 +45,7 @@ public class MovieShowsRepositoryTest {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        MovieShow expectedShow = new MovieShow(1, "Remo", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-29 19:10"), sdf.parse("2019-01-29 21:10"),"Tamil");
+        MovieShow expectedShow = new MovieShow(1, "Remo", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-29 19:10"), sdf.parse("2019-01-29 21:10"), "Tamil", 500);
 
         List<MovieShow> movieShows = movieShowsRepo.getShows();
         MovieShow actualShow = movieShows.get(11);
@@ -60,7 +59,7 @@ public class MovieShowsRepositoryTest {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        MovieShow expectedShow = new MovieShow(2, "Kabali", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-30 10:00"), sdf.parse("2019-01-29 13:00"),"Tamil");
+        MovieShow expectedShow = new MovieShow(2, "Kabali", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-30 10:00"), sdf.parse("2019-01-29 13:00"), "Tamil", 500);
 
         List<MovieShow> movieShows = movieShowsRepo.getShowsByMovieName(movieName);
         MovieShow actualShow = movieShows.get(0);
@@ -71,7 +70,7 @@ public class MovieShowsRepositoryTest {
     public void shouldMovieShowsByMovieID() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        MovieShow expectedShow = new MovieShow(2, "Kabali", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-30 10:00"), sdf.parse("2019-01-29 13:00"),"Tamil");
+        MovieShow expectedShow = new MovieShow(2, "Kabali", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-30 10:00"), sdf.parse("2019-01-29 13:00"), "Tamil", 500);
 
         List<MovieShow> movieShows = movieShowsRepo.getShowsByMovieID(1L);
 
@@ -84,7 +83,7 @@ public class MovieShowsRepositoryTest {
     public void shouldMovieShowsByMovieIDAndShowDate() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-        MovieShow expectedShow = new MovieShow(2, "Kabali", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-30 10:00"), sdf.parse("2019-01-29 13:00"),"Tamil");
+        MovieShow expectedShow = new MovieShow(2, "Kabali", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-30 10:00"), sdf.parse("2019-01-29 13:00"), "Tamil", 500);
 
         List<MovieShow> movieShows = movieShowsRepo.getShowsByMovieID(1L, "2019-01-30");
 
@@ -93,5 +92,24 @@ public class MovieShowsRepositoryTest {
         assertEquals(expectedShow, expectedMovieShow);
     }
 
+    @Test
+    public void shouldMovieShowsByMovieIDAndShowDateAndNumberOfRequiredTickets() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        MovieShow expectedShow = new MovieShow(2, "Kabali", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-30 10:00"), sdf.parse("2019-01-29 13:00"), "Tamil", 500);
+
+        List<MovieShow> movieShows = movieShowsRepo.getShowsByMovieID(1L, "2019-01-30");
+        MovieShow expectedMovieShow = movieShows.get(0);
+        assertEquals(expectedShow, expectedMovieShow);
+    }
+
+    @Test
+    public void shouldGetMovieShowByMovieIdAndShowId() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        MovieShow expectedShow = new MovieShow(2, "Kabali", "PVR", 500, "Dolby", 150, sdf.parse("2019-01-30 10:00"), sdf.parse("2019-01-29 13:00"), "Tamil", 500);
+
+        MovieShow actualShow = movieShowsRepo.getMovieShow(1L, 2L);
+
+        assertEquals(expectedShow, actualShow);
+    }
 
 }

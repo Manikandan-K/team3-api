@@ -16,7 +16,14 @@ public class MovieShowController {
     @RequestMapping(value = "/movies/{id}/shows",
             method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MovieShow> getMovieShowDetail(@PathVariable Long id, @RequestParam String showDate) {
+
         return movieShowsRepo.getShowsByMovieID(id, showDate);
+    }
+
+
+    @RequestMapping(value = "/movies/{id}/shows/{showId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public MovieShow getMovieShowDetailByShowId(@PathVariable Long id, @PathVariable Long showId) {
+        return movieShowsRepo.getMovieShow(id, showId);
     }
 
 }

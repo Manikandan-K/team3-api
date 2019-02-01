@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import spicinemas.api.model.MovieShow;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -50,7 +51,8 @@ public class MovieShowsRepository {
                         DSL.field("MOVIE.RUNTIME").as("RUNTIME"),
                         DSL.field("MOVIE_SHOWS.START_TIME").as("START_TIME"),
                         DSL.field("MOVIE_SHOWS.END_TIME").as("END_TIME"),
-                        DSL.field("MOVIE.LANGUAGE").as("LANGUAGE")
+                        DSL.field("MOVIE.LANGUAGE").as("LANGUAGE"),
+                        DSL.field("THEATERS.CAPACITY").minus(DSL.field("MOVIE_SHOWS.BOOKED_SEATS")).as("AVAILABLE_TICKETS")
                 )
                 .from(DSL.table("MOVIE_SHOWS"))
                 .leftOuterJoin(DSL.table("MOVIE"))
@@ -69,10 +71,9 @@ public class MovieShowsRepository {
     }
 
     public List<MovieShow> getShowsByMovieID(Long id, String showDate) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(showDate, dateTimeFormatter);
-        java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
-        java.sql.Date nextSqlDate = java.sql.Date.valueOf(localDate.plusDays(1));
+        DateParser dateParser = new DateParser(showDate).invoke();
+        Date sqlDate = dateParser.getSqlDate();
+        Date nextSqlDate = dateParser.getNextSqlDate();
 
         SelectConditionStep conditionStep = this.getGenericQuery()
                 .where(DSL.field("MOVIE.ID").eq(id)
@@ -81,5 +82,42 @@ public class MovieShowsRepository {
                 .fetch()
                 .into(MovieShow.class);
         return filteredMovieShows;
+    }
+
+    public MovieShow getMovieShow(Long id, Long showId) {
+        SelectOnConditionStep genericQuery = this.getGenericQuery();
+
+        return genericQuery
+                .where(DSL.field("MOVIE.ID").eq(id)
+                        .and(DSL.field("MOVIE_SHOWS.ID").eq(showId))
+                )
+                .fetchOne()
+                .into(MovieShow.class);
+    }
+
+    private class DateParser {
+        private String showDate;
+        private Date sqlDate;
+        private Date nextSqlDate;
+
+        public DateParser(String showDate) {
+            this.showDate = showDate;
+        }
+
+        public Date getSqlDate() {
+            return sqlDate;
+        }
+
+        public Date getNextSqlDate() {
+            return nextSqlDate;
+        }
+
+        public DateParser invoke() {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate localDate = LocalDate.parse(showDate, dateTimeFormatter);
+            sqlDate = Date.valueOf(localDate);
+            nextSqlDate = Date.valueOf(localDate.plusDays(1));
+            return this;
+        }
     }
 }
